@@ -1,0 +1,65 @@
+---
+
+- name: Copy bootstrap archives
+  vsphere_copy:
+    host: "{{ vsphere_host }}"
+    username: "{{ vsphere_username }}"
+    password: "{{ vsphere_password }}"
+    datacenter: "{{ vsphere_datacenter }}"
+    datastore: "{{ vsphere_datastore }}"
+    src: "{{ bootstrap_path }}"
+    path: "bootstrap_archives/{{ vm_name }}_bootstrap.iso"
+    validate_certs: False
+
+- name: Create a virtual machine from a template
+  vmware_guest:
+    hostname: "{{ vsphere_host }}"
+    username: "{{ vsphere_username }}"
+    password: "{{ vsphere_password }}"
+    datacenter: "{{ vsphere_datacenter }}"
+    datastore: "{{ vsphere_datastore }}"
+    validate_certs: False
+    folder: "{{ vsphere_datacenter }}/vm/"
+    name: "{{ vm_name }}"
+    state: poweredoff
+    template: "{{ vm_template }}"
+  delegate_to: localhost
+  register: deploy
+
+- name: Configure CD-ROM ISO
+  vmware_guest:
+    hostname: "{{ vsphere_host }}"
+    username: "{{ vsphere_username }}"
+    password: "{{ vsphere_password }}"
+    datacenter: "{{ vsphere_datacenter }}"
+    datastore: "{{ vsphere_datastore }}"
+    validate_certs: False
+    name: "{{ vm_name }}"
+    state: present
+    cdrom:
+      type: iso
+      iso_path: "[{{ vsphere_datastore }}] bootstrap_archives/{{ vm_name }}_bootstrap.iso"
+  delegate_to: localhost
+  register: configure_cdrom
+
+- name: Power-ON VM-Series
+  vmware_guest:
+    hostname: "{{ vsphere_host }}"
+    username: "{{ vsphere_username }}"
+    password: "{{ vsphere_password }}"
+    datacenter: "{{ vsphere_datacenter }}"
+    datastore: "{{ vsphere_datastore }}"
+    validate_certs: False
+    name: "{{ vm_name }}"
+    state: poweredon
+    cdrom:
+      type: iso
+      iso_path: "[{{ vsphere_datastore }}] bootstrap_archives/{{ vm_name }}_bootstrap.iso"
+  delegate_to: localhost
+  register: powered_on
+
+#- name: debug output
+#  debug:
+#        msg: vm {{ vm_name }} has been deployed {{ powered_on }}
+
+

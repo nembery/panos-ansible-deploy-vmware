@@ -1,0 +1,50 @@
+#
+#   Group Vars - Main configuration for PAN-OS VM-Series deployment configuration
+#
+# Optional Setup our virtualenv
+# ansible_python_interpreter: "./venv/bin/python"
+
+# Customize VM Hostname and VM Name in VCenter
+vm_name: panos-poc-01
+
+# Customize VCenter Authentication information
+vsphere_username: administrator@vsphere.local
+vsphere_host: 10.10.10.10
+vsphere_password: password
+vsphere_datacenter: some-datacenter
+vsphere_datastore: some-datastore
+
+# panos-bootstrapper host and port
+bootstrapper_host: 127.0.0.1
+bootstrapper_port: 5000
+
+# bootstrap image path - where to download the generated ISO file
+bootstrap_path: /tmp/{{ vm_name }}_bootstrap.iso
+
+# PAN-OS template - Created by importing the PA-VM-ESX-9.0.1.OVA and converting to a template
+vm_template: PA-VM-ESX-9.0.1
+
+# complete list of init-cfg options
+# refer to https://www.paloaltonetworks.com/documentation/71/pan-os/pan-os/firewall-administration/sample-init-cfg-txt-files for complete details
+# Use these to customize the generated bootstrap package
+
+dhcp_or_static: dhcp-client
+hostname: "{{ vm_name }}"
+ip_address:
+default_gateway:
+netmask:
+dns_primary: 
+dns_secondary:
+ipv6_address:
+ipv6_default_gateway:
+panorama_server: 
+panorama_server_2:
+tpl_name:
+dg_name:
+vm_auth_key:
+op_command_modes:
+dhcp_accept_server_hostname:
+dhcp_send_hostname:
+dhcp_send_client_id:
+dhcp_accept_server_domain:
+

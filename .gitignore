@@ -1,0 +1,4 @@
+*.idea
+*retry
+venv*
+inventory.local

@@ -1,0 +1,14 @@
+---
+- name: "Generate Bootstrap ISO"
+  uri:
+    url: http://{{ bootstrapper_host }}:{{ bootstrapper_port }}/generate_bootstrap_package
+    method: POST
+    body: "{{ lookup('template','generate_bootstrap.json.j2') }}"
+    status_code: 200
+    body_format: json
+    dest: "{{ bootstrap_path }}"
+
+- name: "Set permissions on Bootstrap ISO"
+  file:
+    path: "{{ bootstrap_path }}"
+    mode: 0777

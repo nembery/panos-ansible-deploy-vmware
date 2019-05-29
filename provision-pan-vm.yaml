@@ -1,0 +1,8 @@
+---
+
+- hosts: vmware
+  gather_facts: true
+  roles:
+    - role: provision-pan-vm
+      become: false
+
