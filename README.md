@@ -10,8 +10,12 @@ This playbook uses the [PAN-OS Bootstrapper Utility](https://github.com/PaloAlto
 to generate a bootstrap archive. To set up the bootstrapper utility see the 
 [official docs](https://panos-bootstrapper.readthedocs.io/en/latest/).
 
-In order to run this playbook, you need to download and import the PA-VM-ESX-9.0.1.OVA into your vcenter environment. 
-Once imported, conver the resulting VM into a VM-Template.
+In order to run this playbook, you need to download and 
+[import](https://pubs.vmware.com/fusion-5/topic/com.vmware.fusion.help.doc/GUID-275EF202-CF74-43BF-A9E9-351488E16030.html) 
+the PA-VM-ESX-9.0.1.OVA into your vcenter environment. 
+
+Once imported, [convert](https://pubs.vmware.com/vsphere-51/topic/com.vmware.vsphere.vm_admin.doc/GUID-846238E4-A1E3-4A28-B230-33BDD1D57454.html)
+ the resulting VM into a VM-Template.
 
 Edit the inventory/group_vars/all file to reflect your environment. 
 
