@@ -1,5 +1,5 @@
 
-# PAN-OS Deployment using Ansible and Bootstrapper
+# PAN-OS VM-Series Bootstrapping and Deployment into VMWare using Ansible
 
 This is an example playbook that demonstrates how to use the PAN-OS bootstrapper
 utility along with Ansible to deploy a VM Series Firewall in a VMWare environment. 
